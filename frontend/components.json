@@ -1,0 +1,14 @@
+{
+  "style": "default",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/app/globals.css",
+    "baseColor": "slate"
+  },
+  "aliases": {
+    "components": "@/src/components",
+    "utils": "@/src/lib/utils"
+  }
+}
