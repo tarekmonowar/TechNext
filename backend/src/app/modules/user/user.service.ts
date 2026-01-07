@@ -110,7 +110,6 @@ const updateProfile = async (
 ) => {
   const data: any = { ...payload };
 
-  // If updating password, hash it
   if (data.password) {
     data.password = await bcryptjs.hash(
       data.password,
