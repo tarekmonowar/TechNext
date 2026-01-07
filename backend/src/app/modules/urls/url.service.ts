@@ -15,7 +15,8 @@ const createShortUrl = async (
 
   //free tier limit
   const userUrlCount = await prisma.shortUrl.count({ where: { userId } });
-  if (userUrlCount >= 100) throw new AppError(400, "Free tier limit reached");
+  if (userUrlCount >= 100)
+    throw new AppError(400, "Free tier limit reached. Please upgrade Plan");
 
   const shortCode = await generateUniqueShortCode();
 
