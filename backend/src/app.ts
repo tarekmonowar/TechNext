@@ -6,6 +6,7 @@ import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { router } from "./app/routes";
 import { envVars } from "./app/config/env";
+import { RedirectRoutes } from "./app/modules/redirect/redirect.route";
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.use(
 
 // Setting up routes
 app.use("/api/v1", router);
+
+//Public route for URl redirect
+app.use("/", RedirectRoutes);
 
 // Home route
 app.get("/", (req: Request, res: Response) => {

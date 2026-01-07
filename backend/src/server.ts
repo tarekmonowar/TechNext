@@ -2,13 +2,14 @@ import { Server } from "http";
 import app from "./app";
 import { envVars } from "./app/config/env";
 import { prisma } from "./app/config/db";
+import { seedAdmin } from "./app/utils/seedSuperAdmin";
 
 let server: Server;
 
 const startServer = async () => {
   try {
     await prisma.$connect();
-    console.log("✅ PostgreSQL connected");
+    console.log("PostgreSQL connected");
 
     server = app.listen(envVars.PORT, () => {
       console.log(`Server is running on http://localhost:${envVars.PORT}`);
@@ -20,6 +21,7 @@ const startServer = async () => {
 
 (async () => {
   await startServer();
+  await seedAdmin();
 })();
 
 // DRY shutdown function
