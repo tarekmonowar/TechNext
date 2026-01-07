@@ -9,11 +9,10 @@ backend/node_modules/
 # =======================
 frontend/.env
 frontend/.env.local
-frontend/.env.development
-frontend/.env.production
+
 backend/.env
 backend/.env.dev
-backend/.env.production
+
 
 # =======================
 # Build / Output folders
@@ -50,3 +49,7 @@ backend/src/generated/
 # Deployment / Misc
 # =======================
 .vercel/
+frontend/.dockerignore
+backend/.dockerignore
+
+*.tsbuildinfo
