@@ -7,8 +7,7 @@ export const registerUserSchema = z.object({
     .min(2, "Full name must be at least 2 characters")
     .max(50, "Full name cannot exceed 50 characters"),
   email: z
-    .string()
-    .email("Invalid email address")
+    .email()
     .min(5, "Email must be at least 5 characters")
     .max(100, "Email cannot exceed 100 characters"),
   password: z
@@ -25,8 +24,7 @@ export const registerUserSchema = z.object({
 // Zod schema for login
 export const loginUserSchema = z.object({
   email: z
-    .string()
-    .email("Invalid email address")
+    .email()
     .min(5, "Email must be at least 5 characters")
     .max(100, "Email cannot exceed 100 characters"),
   password: z
