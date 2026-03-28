@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  backend:
+    image: node:20
+    container_name: technext-backend-dev
+    working_dir: /app/backend
+    volumes:
+      - ../backend:/app/backend
+      - backend_node_modules:/app/backend/node_modules
+    ports:
+      - "5000:5000"
+    env_file:
+      - ../backend/.env
+    command: sh -c "npm install && npm run dev"
+    restart: unless-stopped
+
+  frontend:
+    image: node:20
+    container_name: technext-frontend-dev
+    working_dir: /app/frontend
+    volumes:
+      - ../frontend:/app/frontend
+      - frontend_node_modules:/app/frontend/node_modules
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../frontend/.env.local
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Main development container (VS Code attaches to this)
+  devcontainer:
+    image: node:20
+    container_name: technext-devcontainer
+    working_dir: /workspace
+    volumes:
+      - ..:/workspace
+      - backend_node_modules:/workspace/backend/node_modules
+      - frontend_node_modules:/workspace/frontend/node_modules
+    command: sleep infinity
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:

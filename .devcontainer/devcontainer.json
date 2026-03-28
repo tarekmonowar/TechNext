@@ -1,18 +1,37 @@
 {
-  "name": "ts-container", // Name of the container
-  "image": "node:20", // Base image for the container
-  "workspaceFolder": "/app", // Path to the workspace folder inside the container
-  "mounts": [
-    //bind mount
-    "source=${localWorkspaceFolder},target=/app,type=bind",
-    //name vloumes
-    "source=ts-docker-logges,target=/app/logs,type=volume",
-    //anonymous volume
-    "target=/app/node_modules,type=volume"
-  ],
-  "runArgs": ["--name", "ts-container", "--rm", "--env-file=/.env"], // Additional arguments for running the container
-  "postCreateCommand": "npm install"
-}
+  "name": "TechNext Full Stack",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
 
-// importan ata protita main folder bitore likte hoy froned/backend jonno alda alda
-// run korar jonno ctr+shift+p diye reopen in container diye open korte hobe.ata docker conatiner vs code open kore not loccal(aktu betikrom) see (3.9) video for more details
+  "forwardPorts": [3000, 5000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Frontend (Next.js)",
+      "onAutoForward": "notify"
+    },
+    "5000": {
+      "label": "Backend (Express)",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "cd backend && npm install && cd ../frontend && npm install",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "prisma.prisma",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "remoteUser": "node"
+}
